@@ -1,13 +1,13 @@
-//require('dotenv').config();  //sirve para configurar las variables de entorno
+require('dotenv').config();  //sirve para configurar las variables de entorno
 const { Sequelize } = require('sequelize'); 
 const fs = require('fs'); // para lectura de archivos
 const path = require('path'); // para las rutas
-//const { DB_USER, DB_PASSWORD, DB_HOST, } = process.env; // para traer las variables de entorno ya destructuradas
+const { DB_USER, DB_PASSWORD, DB_HOST, } = process.env; // para traer las variables de entorno ya destructuradas
 
-//console.log(DB_USER, DB_PASSWORD, DB_HOST)
+// console.log(DB_USER, DB_PASSWORD, DB_HOST)
 //Creamos nuestra conexion a la BD con sequelize y 2 argumentos mas para mejorar visibilidad y rendimiento
-//const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/harrypotter`,{
-const sequelize = new Sequelize(`postgres://postgres:davg@localhost/harrypotter`,{
+const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/harrypotter`,{
+//const sequelize = new Sequelize(`postgres://postgres:davg@localhost/harrypotter`,{
     logging:false, // loggin en falso nos quita el exceso de informacion que arroja 
     native:false, //  Mejora el rendimiento de sequelize en 30% al saber que podemos usar pg nativo
 });
@@ -34,11 +34,13 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Character, Spells, Wand } = sequelize.models;   //Personaje y Hechizos
+const { Character, Spells, Wand, Activities } = sequelize.models;   //Personaje, Hechizos, varita y actividades
 
 Character.belongsToMany(Spells,{through:'character_spells'}) //hacemos la relacion mediante la tabla intermedia
 Spells.belongsToMany(Character,{through:'character_spells'})
 Character.hasOne(Wand)
+Character.belongsToMany(Activities,{through:'character_activities'}) //hacemos la relacion mediante la tabla intermedia
+Activities.belongsToMany(Character,{through:'character_activities'})
 
 module.exports = {
     ...sequelize.models,

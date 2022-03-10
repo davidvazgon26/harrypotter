@@ -3,12 +3,38 @@ const axios = require('axios');
 const {Activities} =require('../db'); 
 const routerA = Router();
 
-routerA.get('/', ()=>{
-    res.send('Soy get /activity')
+//req tiene toda la informacion del request
+//res tiene toda la informacion del response
+routerA.get('/', (req, res, next)=>{ //con promesas
+    try {
+        let arr = []
+    Activities.findAll()
+    .then(response =>{
+        arr = response.map(item =>{
+            return item.dataValues.activity
+        })
+        res.send(arr)
+    })
+    } catch (error) {
+        next(error);
+    }
 })
-routerA.post('/', ()=>{
-    res.send('Soy post /activity')
+
+routerA.post('/', (req, res, next)=>{  // req por query
+    try {
+        let {activity} = req.query
+    Activities.findOrCreate({
+        where: {
+            activity: activity
+        }
+    })
+    res.send("actividad agregada correctamente")
+    } catch (error) {
+        next(error);
+    }
 })
+
+
 routerA.put('/', ()=>{
     res.send('Soy put /activity')
 })

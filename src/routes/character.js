@@ -1,6 +1,6 @@
 const {Router} = require('express'); // Nos traemos el Router de express
 const axios = require('axios');
-const {Character} =require('../db'); 
+const {Character} = require('../db'); 
 const routerCh = Router();
 
 routerCh.get('/', ()=>{

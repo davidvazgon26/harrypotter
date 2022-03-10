@@ -36,7 +36,8 @@ const { Character, Spells, Wand, Activities } = sequelize.models;   //Personaje,
 
 Character.belongsToMany(Spells,{through:'character_spells'}) //hacemos la relacion mediante la tabla intermedia
 Spells.belongsToMany(Character,{through:'character_spells'})
-Character.hasOne(Wand)
+Wand
+// Character.hasOne(Wands)
 Character.belongsToMany(Activities,{through:'character_activities'}) //hacemos la relacion mediante la tabla intermedia
 Activities.belongsToMany(Character,{through:'character_activities'})
 

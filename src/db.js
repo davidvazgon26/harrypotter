@@ -4,10 +4,8 @@ const fs = require('fs'); // para lectura de archivos
 const path = require('path'); // para las rutas
 const { DB_USER, DB_PASSWORD, DB_HOST, } = process.env; // para traer las variables de entorno ya destructuradas
 
-// console.log(DB_USER, DB_PASSWORD, DB_HOST)
 //Creamos nuestra conexion a la BD con sequelize y 2 argumentos mas para mejorar visibilidad y rendimiento
 const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/harrypotter`,{
-//const sequelize = new Sequelize(`postgres://postgres:davg@localhost/harrypotter`,{
     logging:false, // loggin en falso nos quita el exceso de informacion que arroja 
     native:false, //  Mejora el rendimiento de sequelize en 30% al saber que podemos usar pg nativo
 });

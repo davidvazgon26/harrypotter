@@ -3,11 +3,53 @@ const axios = require('axios');
 const {Character} = require('../db'); 
 const routerCh = Router();
 
-routerCh.get('/', ()=>{
-    res.send('Soy get /character')
+routerCh.get('/', (req, res, next)=>{
+    try {
+        let arr =[]
+        Character.findAll()
+        .then(response =>{
+            arr = response.map(item =>{
+                // console.log(item.dataValues)
+
+                const {name, species, gender, house, dateOfBirth, wizard, ancestry, patronus, hogwartsStudents, hogwartsStaff, actors, alive, image} = item.dataValues
+
+                obj ={
+                    name, 
+                    species, 
+                    gender, 
+                    house, 
+                    dateOfBirth, 
+                    wizard, 
+                    ancestry, 
+                    patronus, 
+                    hogwartsStudents, 
+                    hogwartsStaff, 
+                    actors, 
+                    alive, 
+                    image
+                }
+                arr.push(obj)
+                // return obj
+                res.send(arr)
+            })
+        })
+    } catch (error) {
+        next(error);
+    }
 })
-routerCh.post('/', ()=>{
-    res.send('Soy post /character')
+
+routerCh.post('/', async (req, res, next)=>{
+    try {
+        const {name, species, gender, house, dateOfBirth, wizard, ancestry, patronus, hogwartsStudents, hogwartsStaff, actors, alive, image} = req.body
+
+        const result = await Character.create({
+            name, species, gender, house, dateOfBirth, wizard, ancestry, patronus, hogwartsStudents, hogwartsStaff, actors, alive, image
+        })
+        console.log(result)
+        res.send('Soy post /character')
+    } catch (error) {
+        next(error);
+    }
 })
 routerCh.put('/', ()=>{
     res.send('Soy put /character')

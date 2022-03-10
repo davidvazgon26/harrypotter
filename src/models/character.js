@@ -60,7 +60,13 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       image:{
-        type: DataTypes.STRING,
-      }
+        type: DataTypes.TEXT,
+        validate:{isUrl:true},
+        defaultValue: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStVdGwo4n8Th_UFzPgB6FOnhsp-EeUeQuS9g&usqp=CAU'
+      }, 
+      // clientGame:{
+      //   type: DataTypes.BOOLEAN,
+      //   defaultValue: false
+      // }
   });
 }

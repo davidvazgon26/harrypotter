@@ -28,11 +28,11 @@ crear archivo .ignore en raiz (pueden usar: 'https://www.toptal.com/developers/g
 
 segun nuestra configuracion del main en el archivo package.json le dijimos que el inicio de nuestra aplicacion es en index.js de la raiz
 
-Creamos la bd en la consola de pg
+Creamos la DB en la consola de pg
 
 * Creamos nuestro servidor en app.js
-* Creamos nuestra bd en db.js 
-* hacemos la conecion de ambos en index y lo ponemos a escuchar
+* Creamos nuestra DB en db.js 
+* hacemos la conexion de ambos en index y lo ponemos a escuchar
 
 
 
